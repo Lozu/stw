@@ -1,0 +1,36 @@
+	1. Introduction
+
+stw - stopwatch program, that can save passed time. It should run on Linux
+and *BSD.
+
+	2. Installation
+
+To build stw you will need gcc or clang/llvm compiler toolchain (it should
+not be hard to build with other compiler, but you will have to patch make-
+file), GNU make, tar, gzip and some POSIX default programs (sh, test, ...). 
+
+Whatever platform you use (Linux or some BSD), at first you will have to set
+appropriate values to variables at the top of 'GNUmakefile' file.
+
+If you are using *BSD, then next you can issue 'gmake' in top level direct-
+ory and after it's done, you will have executable with name you provided in
+'GNUmakefile'.
+
+If you are on Linux, then you can do the same, but with 'make'. You also can
+compile stw with Musl C Library, that comes within this tarball. This is
+recommended way on Linux, because it will give you small and independable
+executable. To do so run in top level directory 'make MUSL=$(pwd)/pkgs'.
+Compilation may take up to minute. To speed up process, in 'GNUmakefile'
+set JOBS to number of cores your processor have. If you have git repository,
+you will need to manually obtain musl tarball and place it into 'pkgs'
+directory.
+
+	3. Usage
+
+Run stw without any arguments or with '--help' argument to get help. When
+you launch it without '-s' flag, stw start working as stopwatch and there is
+only one 'right' way to stop it: you should send it SIGINT. After that stw
+stops and writes new time (elapsed time from this run + time saves in input
+file) to input file, If another signal is sent instead input file contents
+will remain unchanged. Don't send another signal after SIGINT, you risk
+losing saved time in file.

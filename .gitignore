@@ -1,0 +1,7 @@
+*.o
+
+musl-1.2.2*
+local
+pkgs
+
+stw
